@@ -17,7 +17,7 @@
                 $conn= mysqli_connect("localhost", "root", "", "php") or die("Datebase Connection Faild");
                 $sql = ("SELECT * FROM studentclass" );
                 $result = mysqli_query($conn, $sql) or die("Query Unsuccessful");
-
+                echo "hello";
                 while($row = mysqli_fetch_assoc($result)) {
                 ?>
 
@@ -30,7 +30,7 @@
             <label>Phone</label>
             <input type="text" name="sphone" />
         </div>
-        <input class="submit" type="submit" value="Save"  />
+        <input class="submit" type="submit" value="Save"/>
     </form>
 </div>
 </div>
