@@ -1,9 +1,12 @@
+<?php 
+    @include_once('header.php');
+?>
 
 <div id="main-content">
     <h2>All Records</h2>
     <?php
     $conn = mysqli_connect("localhost", "root", "", "php") or die("connection Faild");
-    $sql = "SELECT * FROM student JOIN cstudent WHERE student.Roll = cstudent.sroll";
+    $sql = "SELECT * FROM student JOIN studentclass WHERE student.sclass = studentclass.cid";
     $result = mysqli_query($conn, $sql) or die("Query Unsuccesfull.");
 
     if(mysqli_num_rows($result) > 0) {
@@ -23,14 +26,14 @@
                 while($row = mysqli_fetch_assoc($result)) {
             ?>
             <tr>
-                <td><?php echo $row['Id'] ?></td>
-                <td><?php echo $row['Name'] ?></td>
-                <td><?php echo $row['address'] ?></td>
-                <td><?php echo $row['Class'] ?></td>
-                <td><?php echo $row['phone'] ?></td>
+                <td><?php echo $row['sid'] ?></td>
+                <td><?php echo $row['sname'] ?></td>
+                <td><?php echo $row['saddress'] ?></td>
+                <td><?php echo $row['cname'] ?></td>
+                <td><?php echo $row['sphone'] ?></td>
                 <td>
-                    <a href='edit.php'>Edit</a>
-                    <a href='delete-inline.php'>Delete</a>
+                    <a href='edit.php?id=<?php echo $row['sid'] ?>'>Edit</a>
+                    <a href='delete-inline.php?id=<?php echo $row['sid'] ?>'>Delete</a>
                 </td>
             </tr>
             <?php  } ?>
@@ -38,7 +41,7 @@
     </table>
 
     <?php } else {
-        echo "<h2>No Record Found</h2>";
+        echo "<h2>No Record Found</h2>"; 
     } 
     mysqli_close($conn);
     ?>

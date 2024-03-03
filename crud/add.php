@@ -21,7 +21,7 @@
                 while($row = mysqli_fetch_assoc($result)) {
                 ?>
 
-                <option value="<?php echo $row['classid'] ?>" ><?php echo $row['Class'] ?></option>
+                <option value="<?php echo $row['cid'] ?>" ><?php echo $row['cname'] ?></option>
 
                 <?php } ?>
             </select>
