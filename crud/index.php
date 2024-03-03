@@ -23,11 +23,12 @@
         </thead>
         <tbody>
             <?php
+            $sl = 1;
                 while($row = mysqli_fetch_assoc($result)) {
             ?>
             <tr>
-                <td><?php echo $row['sid'] ?></td>
-                <td><?php echo $row['sname'] ?></td>
+                <td><?= $sl ?></td>
+                <td><?= $row['sname'] ?></td>
                 <td><?php echo $row['saddress'] ?></td>
                 <td><?php echo $row['cname'] ?></td>
                 <td><?php echo $row['sphone'] ?></td>
@@ -36,7 +37,7 @@
                     <a href='delete-inline.php?id=<?php echo $row['sid'] ?>'>Delete</a>
                 </td>
             </tr>
-            <?php  } ?>
+            <?php $sl++; } ?>
         </tbody>
     </table>
 
