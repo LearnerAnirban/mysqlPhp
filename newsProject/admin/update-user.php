@@ -27,7 +27,7 @@ include "header.php";
 
                 ?>
                   <!-- Form Start -->
-                  <form  action="" method ="POST">
+                  <form  action="updateUserData.php" method ="POST">
                       <div class="form-group">
                           <input type="hidden" name="user_id"  class="form-control" value="<?php echo $row['id'] ?>" placeholder="" >
                       </div>
