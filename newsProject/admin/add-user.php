@@ -1,13 +1,13 @@
 <?php 
 
 include "header.php"; 
-
+   
 
 if(isset($_POST['register'])) {
     include "config.php";
     
 
-    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
+    $fname = mysqli_real_escape_string($conn, $_POST['fname']); 
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $user = mysqli_real_escape_string($conn, $_POST['user']);
     $passwordd = mysqli_real_escape_string($conn, md5($_POST['password']));
@@ -66,7 +66,7 @@ if(isset($_POST['register'])) {
                       <div class="form-group">
                           <label>User Role</label>
                           <select class="form-control" name="role" >
-                              <option value="0">Normal User</option>
+                              <option value="0">Editor</option>
                               <option value="1">Admin</option>
                           </select>
                       </div>

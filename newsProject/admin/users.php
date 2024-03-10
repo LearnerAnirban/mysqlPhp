@@ -21,7 +21,18 @@
                       <tbody>
                       <?php
                         include 'config.php';
-                        $sql = "SELECT * FROM user";
+                        $limit = 3;
+
+                        if(isset($_GET['page'])) {
+                            $page = $_GET['page'];
+
+                        } else {
+                            $page = 1;
+                        }
+
+                        $offset = ($page - 1) * $limit;
+
+                        $sql = "SELECT * FROM user LIMIT $offset, $limit";
                         $result = mysqli_query($conn, $sql) or die("Query Failed");
                         if(mysqli_num_rows($result) > 0) {
                             while($row = mysqli_fetch_assoc($result)) {
@@ -35,7 +46,7 @@
                         ?>
                           <tr>
                               <td class='id'><?php echo $row['id'] ?></td>
-                              <td><?php echo $row['first_name'] . $row['last_name'] ?></td>
+                              <td><?php echo $row['first_name'] ." " . $row['last_name'] ?></td>
                               <td><?php echo $row['username'] ?></td>
                               <td><?php echo $role ?></td>
                               <td class='edit'><a href='update-user.php?id=<?php echo $row['id'] ?>'><i class='fa fa-edit'></i></a></td>
@@ -47,9 +58,30 @@
                       </tbody>
                   </table>
                   <ul class='pagination admin-pagination'>
-                      <li class="active"><a>1</a></li>
-                      <li><a>2</a></li>
-                      <li><a>3</a></li>
+                    <?php
+                        if($page > 1) {
+                            echo '<li><a href="users.php?page='. ($page - 1) .'">Prev</a></li>';
+                        }
+
+                        $sql1 = "SELECT * FROM user";
+                        $result1 = mysqli_query($conn, $sql1);
+                        $total_records = mysqli_num_rows($result1);
+                        $total_page = ceil($total_records / $limit);
+                        for($i = 1; $i <= $total_page; $i++) {
+
+                    ?>
+                      <li class='<?php
+                        if($page == $i) {
+                            echo "active";
+                        }
+                      ?>'><a href="users.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                    <?php
+                        };
+                        if($total_page > $page) {
+                            echo '<li><a href="users.php?page='.($page + 1).'">Next</a></li>';
+                        }
+                        
+                    ?>
                   </ul>
               </div>
           </div>
