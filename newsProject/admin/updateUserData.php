@@ -10,6 +10,6 @@ $sql = "UPDATE user SET first_name = '{$fname}', last_name = '{$lname}', usernam
 
 $result = mysqli_query($conn, $sql);
 
-header("Location: http://localhost/mysqlPhp/newsProject/admin/users.php");
+header("Location: $hostname/admin/users.php");
 mysqli_close($conn);
 ?>

@@ -1,4 +1,13 @@
-<?php include "header.php"; ?>
+<?php 
+    include "header.php"; 
+    include "config.php";
+
+    if($_SESSION['user_role'] != 1) {
+        header("Location: {$hostname}/admin/post.php");
+    }
+
+
+?>
   <div id="admin-content">
       <div class="container">
           <div class="row">
@@ -21,7 +30,7 @@
                       <tbody>
                       <?php
                         include 'config.php';
-                        $limit = 3;
+                        $limit = 5;
 
                         if(isset($_GET['page'])) {
                             $page = $_GET['page'];
@@ -87,4 +96,4 @@
           </div>
       </div>
   </div>
-<?php include "header.php"; ?>
+<?php include "footer.php"; ?>

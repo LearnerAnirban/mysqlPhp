@@ -1,7 +1,11 @@
 <?php 
 
-include "header.php"; 
-   
+    include "header.php"; 
+    include "config.php";
+    session_start();
+    if($_SESSION['user_role'] != 1) {
+        header("Location: {$hostname}/admin/post.php");
+    }
 
 if(isset($_POST['register'])) {
     include "config.php";
@@ -26,7 +30,7 @@ if(isset($_POST['register'])) {
             header("Location: http://localhost/mysqlPhp/newsProject/admin/users.php");
         }
     }
-
+    mysqli_close($result);
 
 
 

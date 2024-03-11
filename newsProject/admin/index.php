@@ -1,3 +1,11 @@
+<?php
+    include "config.php";
+    session_start();
+    if(isset($_SESSION['user_name'])) {
+        header("Location: {$hostname}/admin/users.php");
+    }
+
+?>
 <!doctype html>
 <html>
    <head>
@@ -18,7 +26,7 @@
                         <img class="logo" src="images/news.jpg">
                         <h3 class="heading">Admin</h3>
                         <!-- Form Start -->
-                        <form  action="" method ="POST">
+                        <form  action="<?php $_SERVER['PHP_SELF']; ?>" method ="POST">
                             <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" name="username" class="form-control" placeholder="" required>
@@ -30,6 +38,36 @@
                             <input type="submit" name="login" class="btn btn-primary" value="login" />
                         </form>
                         <!-- /Form  End -->
+                        <?php
+                            include 'config.php';
+                            if(isset($_POST['login'])) {
+
+                                $userName = mysqli_real_escape_string($conn, $_POST['username']);
+
+                                $password = md5($_POST['password']);
+    
+                                $sql = "SELECT id, username, role FROM user WHERE username = '{$userName}' AND password = '{$password}' ";
+                                $result = mysqli_query($conn, $sql) or die('query field!');
+    
+                                if(mysqli_num_rows($result) > 0) {
+                                    while($row = mysqli_fetch_assoc($result)) {
+                                        session_start();
+                                        $_SESSION['user_name'] = $row['username'];
+                                        $_SESSION['user_id'] = $row['id'];
+                                        $_SESSION['user_role'] = $row['role'];
+
+
+                                    }
+                                    header("Location: {$hostname}/admin/users.php");
+    
+                                } else {
+                                    echo "<h3>User name and password dosen't matche</h3>";
+                                }
+                            }
+
+
+
+                        ?>
                     </div>
                 </div>
             </div>
