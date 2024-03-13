@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <h1 class="admin-heading">All Categories</h1>
+                <h1 class="admin-heading">All Categories </h1>
             </div>
             <div class="col-md-2">
                 <a class="add-new" href="add-category.php">add category</a>
@@ -26,15 +26,19 @@
                     </thead>
                     <tbody>
                         <?php
-                            if(isset($cat_id)) {
-                                $page_num = $_GET['cat_id'];
+                            
+                            if(isset($_GET['id'])) {
+                                $page_num = $_GET['id'];
                             } else {
-                                $page_num = 0;
+                                $page_num = 1;
                             }
 
                             $limit = 2;
                             $offset = ($page_num - 1) * $limit;
                             $sql = "SELECT * FROM category LIMIT $offset, $limit";
+                            // var_dump($sql);
+                            // die();
+                            
                             $result = mysqli_query($conn, $sql) or die("Query Failed");
 
                             if(mysqli_num_rows($result) > 0) {
@@ -59,19 +63,26 @@
                 </table>
                 <ul class='pagination admin-pagination'>
                     <?php
+
                         $sql1 = "SELECT * FROM category";
                         $result1 = mysqli_query($conn, $sql1) or die("Query Failed");
                         $total_cat = mysqli_num_rows($result1);
-                        $total_page = $total_cat / $limit;
+                        $total_page = ceil($total_cat / $limit);
+                        if($page_num > 1) {
+                            echo "<li><a href='category.php?id=" . ($page_num - 1) . "'>Prev</a></li>";
+                        }
                         for($i = 1; $i <= $total_page; $i++ ) {
                     ?>
                             <!-- <li class="active"><a>1</a></li> -->
-                            <li><a href="category.php?cat_id=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                            <li><a href="category.php?id=<?php echo $i; ?>"><?php echo $i;?></a></li>
 
                     <?php 
                         }
-
+                        if($total_page > $page_num) {
+                            echo "<li><a href='category.php?id=" . $page_num + 1 . "'>Next</a></li>";
+                        }
                     ?>
+                    
                 </ul>
             </div>
         </div>
