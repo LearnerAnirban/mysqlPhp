@@ -22,7 +22,10 @@
                       <tbody>
                         <?php
                             include "config.php";
-                            $sql = "SELECT * FROM post";
+                            $limit = 1;
+                            $page_id = $_GET['id'];
+                            $ofset = ($page_id -1) * $limit;
+                            $sql = "SELECT * FROM post  LIMIT $ofset, $limit";
                             $result = mysqli_query($conn, $sql) or die("Query Failed");
                             if(mysqli_num_rows($result) > 0) {
                                 while($row = mysqli_fetch_assoc($result)) {
@@ -51,9 +54,25 @@
                       </tbody>
                   </table>
                   <ul class='pagination admin-pagination'>
-                      <li class="active"><a>1</a></li>
-                      <li><a>2</a></li>
-                      <li><a>3</a></li>
+
+                    <?php 
+                        if($page_id > 1) {
+                            echo '<li><a href="post.php?id=' . $page_id - 1 . '">Prev</a></li>';
+                        }
+                        $sql1 = "SELECT * FROM post";
+                        $result1 = mysqli_query($conn, $sql1) or die("Query Failed");
+                        $total_post = mysqli_num_rows($result1);
+                        $total_page = ceil($total_post / $limit);
+
+                        for($i = 1; $i <= $total_page; $i++) {
+                    ?>
+                      <li><a href="post.php?id=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <?php  
+                        }
+                        if($page_id < $total_page) {
+                            echo '<li><a href="post.php?id=' . $page_id + 1 . '">Prev</a></li>';
+                        }
+                    ?>
                   </ul>
               </div>
           </div>
