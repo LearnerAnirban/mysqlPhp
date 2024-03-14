@@ -31,6 +31,7 @@
                 
                 $sql1 = "UPDATE post SET title = '{$post_tilte}', description = '{$post_des}', category = '{$post_cat}', post_date = '{$post_date}', post_img = '{$file_name}' WHERE post_id = {$post_id}";
                 $result1 = mysqli_query($conn, $sql1) or die("Query Failed");
+                header("Location: {$hostname}/admin/post.php");
             }
 
 

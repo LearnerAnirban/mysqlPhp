@@ -26,7 +26,7 @@
                                 if(mysqli_num_rows($result) > 0) {
                                     while($row = mysqli_fetch_assoc($result)) {
                             ?>
-                              <option value="<?php echo $row['category_name']; ?>"> <?php echo $row['category_name']; ?></option>
+                              <option value="<?php echo $row['category_id']; ?>"> <?php echo $row['category_name']; ?></option>
                             <?php
                                     }
                                 }
