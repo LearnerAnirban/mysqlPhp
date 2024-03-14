@@ -10,7 +10,10 @@
             include "config.php";
             $post_id = $_GET['id'];
             if(isset($_POST['submit'])) {
-                if($_FILES['new-image']) {
+
+                if(empty($_FILES['new-image'] ['name'])) {
+                    $file_name = $_POST['old-image'];
+                } else {
                     $file_name = $_FILES['new-image'] ['name'];
                     $file_type = $_FILES['new-image'] ['type'];
                     $file_tmp = $_FILES['new-image'] ['tmp_name'];
