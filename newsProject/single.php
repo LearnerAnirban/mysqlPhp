@@ -5,10 +5,10 @@
                 <div class="col-md-8">
                     <?php 
                         include "./admin/config.php";
+                        $post_it = $_GET['id'];
                         $sql = "SELECT * FROM post
                         LEFT JOIN category ON post.category = category.category_id
-                        LEFT JOIN user ON post.author= user.id;
-                        ";
+                        LEFT JOIN user ON post.author= user.id WHERE post_id = {$post_it}";
                         $result = mysqli_query($conn, $sql) or die("Query Failed");
                         if(mysqli_num_rows($result)) {
                             $row = mysqli_fetch_assoc($result)

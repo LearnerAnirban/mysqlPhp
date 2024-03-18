@@ -35,10 +35,28 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class='menu'>
-                    <li><a href='category.php'>Business</a></li>
-                    <li><a href='category.php'>Entertainment</a></li>
-                    <li><a href='category.php'>Sports</a></li>
-                    <li><a href='category.php'>Politics</a></li>
+                    <?php
+                        include "./admin/config.php";
+                        if(isset($_GET['cat_id'])) {
+                            $cat_id = $_GET['cat_id'];
+                        } else {
+                            $active = "active";
+                        }
+                    ?>
+                    <li><a class = '<?php echo $active; ?>' href='http://localhost/mysqlPHP/newsProject/index.php'>Home</a></li>
+                    <?php              
+                        $sql = "SELECT * FROM category";
+                        $result = mysqli_query($conn, $sql) or die("Query Failed");
+                        if(mysqli_num_rows($result) > 0) {
+                            while($row = mysqli_fetch_assoc($result)) {
+                                if($row['post'] > 0) {
+                    ?> 
+                       <li><a  class = "<?php echo $row['category_id'] == $cat_id ? 'active' : ''; ?>" href='category.php?cat_id=<?php echo $row['category_id']; ?>'><?php echo $row['category_name']; ?></a></li>
+                    <?php 
+                                }
+                            }
+                        }
+                    ?>
                 </ul>
             </div>
         </div>

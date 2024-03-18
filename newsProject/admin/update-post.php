@@ -69,7 +69,7 @@
                         if(mysqli_num_rows($result1) > 0) {
                             while($row1 = mysqli_fetch_assoc($result1)) {
                     ?>
-                        <option <?php echo $row['category'] == $row1['category_name'] ? "selected" : ""; ?> value="<?php echo $row1['category_id']; ?>"><?php echo $row1['category_name']; ?></option>
+                        <option <?php echo $row['category'] == $row1['category_id'] ? "selected" : ""; ?> value="<?php echo $row1['category_id']; ?>"><?php echo $row1['category_name']; ?></option>
                     <?php 
                             }
                         }
