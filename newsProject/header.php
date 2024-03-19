@@ -43,6 +43,12 @@
                             $active = "active";
                         }
                     ?>
+                    <li><a href="<?php echo $hostname?>/admin/index.php">
+                        <?php
+                            session_start();
+                            echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : "logIn";
+                        ?>
+                    </a></li>
                     <li><a class = '<?php echo $active; ?>' href='http://localhost/mysqlPHP/newsProject/index.php'>Home</a></li>
                     <?php              
                         $sql = "SELECT * FROM category";

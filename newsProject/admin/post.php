@@ -77,7 +77,7 @@
                         if($page_id > 1) {
                             echo '<li><a href="post.php?id=' . $page_id - 1 . '">Prev</a></li>';
                         }
-                        $sql1 = "SELECT * FROM post";
+                        $sql1 = "SELECT * FROM post WHERE post.author = {$_SESSION['user_id']}";
                         $result1 = mysqli_query($conn, $sql1) or die("Query Failed");
                         $total_post = mysqli_num_rows($result1);
                         $total_page = ceil($total_post / $limit);

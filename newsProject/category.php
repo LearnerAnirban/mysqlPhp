@@ -23,7 +23,7 @@
                         }
                         
 
-                        $limit = 1;
+                        $limit = 3;
                         $ofset = ($page - 1) * $limit;
                         $sql = "SELECT * FROM post
                         LEFT JOIN category ON post.category = category.category_id

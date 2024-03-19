@@ -5,10 +5,12 @@
             <div class="col-md-8">
                 <!-- post-container -->
                 <div class="post-container">
-                  <h2 class="page-heading">Author Name</h2>
                         <?php 
                             include "./admin/config.php";
-                            $aid = $_GET['aid'];
+                            if(isset($_GET['aid'])) {
+                                $aid = $_GET['aid'];
+                            }
+                            
                             if(isset($_GET['page'])) {
                                 $page = $_GET['page'];
                             } else {
@@ -28,6 +30,7 @@
 
 
                         ?>
+                    <h2 class="page-heading"><?php echo $row['username']; ?></h2>
                     <div class="post-content">
                         <div class="row">
                             <div class="col-md-4">
@@ -65,20 +68,20 @@
                         <ul class='pagination'>
                             <?php 
                                 if($page > 1) {
-                                    echo '<li><a href="author.php?page=' . ($page - 1) .'">Prev</a></li>';
+                                    echo '<li><a href="author.php?page=' . ($page - 1) . '&aid=' . $aid .'">Prev</a></li>';
                                 }
-                                $sql1 = "SELECT * FROM post";
+                                $sql1 = "SELECT * FROM post WHERE author = {$aid}";
                                 $result1 = mysqli_query($conn, $sql1);
                                 $total_post = mysqli_num_rows($result1);
                                 $total_page = ceil($total_post / $limit);
                                 for($i = 1; $i <= $total_page; $i++) {
 
                             ?>
-                                <li class = '<?php echo $page == $i ? "active" : "" ?>' ><a href="author.php?page=<?php echo $i; ?>"><?php echo $i ?></a></li>
+                                <li class = '<?php echo $page == $i ? "active" : "" ?>' ><a href="author.php?page=<?php echo $i; ?>&aid=<?php echo $aid; ?>"><?php echo $i ?></a></li>
                             <?php 
                                 }
                                 if($page < $total_page) {
-                                    echo '<li><a href="author.php?page=' . ($page + 1) .'">Prev</a></li>';
+                                    echo '<li><a href="author.php?page=' . ($page + 1) .'&aid=' . $aid . '">Prev</a></li>';
                                 }
                             ?>
                             

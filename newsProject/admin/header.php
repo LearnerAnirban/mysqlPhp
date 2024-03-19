@@ -49,6 +49,9 @@
                     <div class="col-md-12">
                        <ul class="admin-menu">
                             <li>
+                                <a href="<?php echo $hostname; ?>">Home</a>
+                            </li>
+                            <li>
                                 <a href="post.php">Post</a>
                             </li>
                             <?php
